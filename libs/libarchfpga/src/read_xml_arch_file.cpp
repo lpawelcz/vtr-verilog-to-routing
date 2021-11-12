@@ -276,7 +276,7 @@ static void link_physical_logical_types(std::vector<t_physical_tile_type>& Physi
 template<typename T>
 static T* get_type_by_name(const char* type_name, std::vector<T>& types);
 
-static bool parse_noc_router_connection_list(std::vector<int>* connection_list, std::string connection_list_attribute_value);
+static bool parse_noc_router_connection_list(std::vector<int>& connection_list, std::string connection_list_attribute_value);
 
 /*
  *
@@ -4747,7 +4747,7 @@ static void processRouter(pugi::xml_node router_tag, t_arch* arch, const pugiuti
                                "The router id, and position (x & y) for the router must be a positive number.");
     }
 
-    // get the current router connection list as a string
+    // get the current router connection list
     router_connection_list_attribute_value.assign(pugiutil::get_attribute(router_tag, "connections", loc_data, pugiutil::REQUIRED).as_string());
 
     // if the connections attrbiute was not provided or it was empty, then we don't process it and throw a warning
@@ -4755,7 +4755,7 @@ static void processRouter(pugi::xml_node router_tag, t_arch* arch, const pugiuti
     if (router_connection_list_attribute_value.compare("") != 0)
     {
         // process the router connection list
-        router_connection_list_result = parse_noc_router_connection_list(&(router_info.connection_list), router_connection_list_attribute_value);
+        router_connection_list_result = parse_noc_router_connection_list(router_info.connection_list, router_connection_list_attribute_value);
 
         // check if the user provided a legal router connection list
         if (!router_connection_list_result)
@@ -4946,7 +4946,7 @@ static T* get_type_by_name(const char* type_name, std::vector<T>& types) {
                    "Could not find type: %s\n", type_name);
 }
 
-static bool parse_noc_router_connection_list(std::vector<int>* connection_list, std::string connection_list_attribute_value)
+static bool parse_noc_router_connection_list(std::vector<int>& connection_list, std::string connection_list_attribute_value)
 {   
     // we wil be modifying the string so store it in a temporary variable
     // additinally, we peocess substrings seperated by spaces, so we add a space at the end of the string to be able to process the last sub-string
@@ -4978,7 +4978,7 @@ static bool parse_noc_router_connection_list(std::vector<int>* connection_list, 
        }
 
         // if we are here then a legal router id was supplied, so store it
-        connection_list->push_back(converted_connection);
+        connection_list.push_back(converted_connection);
 
         // before we process the next router connection, we need to delete the substring (current router connection)
         modified_attribute_value.erase(0 + position + delimiter.length());

@@ -1738,7 +1738,7 @@ struct t_router {
     int id = -1;
 
     int device_x_position = -1;
-    int device_y_position = -1;;
+    int device_y_position = -1;
     
     std::vector<int> connection_list;
 };
