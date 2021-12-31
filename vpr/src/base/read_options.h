@@ -210,6 +210,7 @@ struct t_options {
     argparse::ArgValue<e_timing_report_detail> timing_report_detail;
     argparse::ArgValue<bool> timing_report_skew;
     argparse::ArgValue<std::string> echo_dot_timing_graph_node;
+    argparse::ArgValue<std::string> write_timing_summary;
 };
 
 argparse::ArgumentParser create_arg_parser(std::string prog_name, t_options& args);
