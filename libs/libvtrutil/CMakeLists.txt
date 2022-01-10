@@ -116,7 +116,7 @@ target_link_libraries(test_vtrutil
                         Catch2::Catch2WithMain)
 
 # ignore compilation warnings when using libcatch2 (warnings appear within the libcatch2 project)
-target_compile_options(test_vtrutil PRIVATE "-w")
+target_compile_options(test_vtrutil PRIVATE "-Wno-ctor-dtor-privacy")
 
 add_test(NAME test_vtrutil COMMAND test_vtrutil --use-colour=yes)
             

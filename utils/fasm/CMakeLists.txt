@@ -50,7 +50,9 @@ add_executable(test_fasm ${TEST_SOURCES})
 target_link_libraries(test_fasm fasm Catch2::Catch2WithMain)
 
 # ignore compilation warnings when using libcatch2 (warnings appear within the libcatch2 project)
-target_compile_options(test_fasm PRIVATE "-w")
+target_compile_options(test_fasm PRIVATE "-Wno-ctor-dtor-privacy")
+target_compile_options(test_fasm PRIVATE "-Wno-non-virtual-dtor")
+target_compile_options(test_fasm PRIVATE "-fcompare-debug-second")
 
 #Supress IPO link warnings if IPO is enabled
 get_target_property(TEST_FASM_USES_IPO test_fasm INTERPROCEDURAL_OPTIMIZATION)

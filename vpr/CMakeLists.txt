@@ -263,7 +263,8 @@ target_link_libraries(test_vpr
                         libvpr)
 
 # ignore compilation warnings when using libcatch2 (warnings appear within the libcatch2 project)
-target_compile_options(test_vpr PRIVATE "-w")
+target_compile_options(test_vpr PRIVATE "-Wno-ctor-dtor-privacy")
+target_compile_options(test_vpr PRIVATE "-Wno-non-virtual-dtor")
 
 #Supress IPO link warnings if IPO is enabled
 get_target_property(TEST_VPR_USES_IPO vpr INTERPROCEDURAL_OPTIMIZATION)
