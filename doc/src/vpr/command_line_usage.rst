@@ -628,9 +628,9 @@ For people not working on CAD, you can probably leave all the options to their d
 
 .. option:: --write_block_usage <file>
 
-    Writes out the block usage summary in machine readable format
-    (JSON or XML, format is selected based on the extension of <file>)
-    to file under path <file>.
+    Writes out to the file under path <file> block usage summary in machine
+    readable (JSON or XML) or human readable (TXT) format. Format is selected
+    based on the extension of <file>.
 
 .. _placer_options:
 
@@ -1043,9 +1043,9 @@ VPR uses a negotiated congestion algorithm (based on Pathfinder) to perform rout
 
 .. option:: --write_timing_summary <file>
 
-    Writes out the final timing summary in machine readable format
-    (JSON or XML, format is selected based on the extension of <file>)
-    to file under path <file>. The summary consists of parameters:
+    Writes out to the file under path <file> final timing summary in machine
+    readable (JSON or XML) or human readable (TXT) format. Format is selected
+    based on the extension of <file>. The summary consists of parameters:
 
     * `cpd` - Final critical path delay (least slack) [ns]
     * `fmax` - Maximal frequency of the implemented circuit [MHz]
