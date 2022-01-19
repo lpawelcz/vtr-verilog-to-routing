@@ -2443,7 +2443,7 @@ void print_verilog_port(std::ostream& os, size_t& unconn_count, const std::strin
             if (nets[ipin].empty()) {
                 //Disconnected
                 if (type == PortType::INPUT || type == PortType::CLOCK) {
-                    os << "1'b0";
+                    os << "1'bZ";
                 } else {
                     VTR_ASSERT(type == PortType::OUTPUT);
                     os << "";
