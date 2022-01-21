@@ -2396,12 +2396,11 @@ void print_blif_port(std::ostream& os, size_t& unconn_count, const std::string& 
  * Handles special cases like multi-bit and disconnected ports
  */
 void print_verilog_port(std::ostream& os, size_t& unconn_count, const std::string& port_name, const std::vector<std::string>& nets, PortType type, int depth, struct t_analysis_opts& opts) {
-    //Port name
-    os << indent(depth) << "." << port_name << "(";
-
     //Pins
     if (nets.size() == 1) {
         //Single-bit port
+        //Port name
+        os << indent(depth) << "." << port_name << "(";
         if (nets[0].empty()) {
             //Disconnected
             if (type == PortType::INPUT || type == PortType::CLOCK) {
@@ -2434,13 +2433,15 @@ void print_verilog_port(std::ostream& os, size_t& unconn_count, const std::strin
             //Connected
             os << escape_verilog_identifier(nets[0]);
         }
+        os << ")";
     } else {
         //A multi-bit port, we explicitly concat the single-bit nets to build the port,
         //taking care to print MSB on left and LSB on right
-        os << "{"
-           << "\n";
         for (int ipin = (int)nets.size() - 1; ipin >= 0; --ipin) { //Reverse order to match endianess
-            os << indent(depth + 1);
+            //Port name
+
+            std::string name = port_name + "[" + std::to_string(ipin) + "]";
+            os << indent(depth) << "." << escape_verilog_identifier(name) << " (";
             if (nets[ipin].empty()) {
                 //Disconnected
                 if (type == PortType::INPUT || type == PortType::CLOCK) {
@@ -2453,14 +2454,13 @@ void print_verilog_port(std::ostream& os, size_t& unconn_count, const std::strin
                 //Connected
                 os << escape_verilog_identifier(nets[ipin]);
             }
+            os << ")";
             if (ipin != 0) {
                 os << ",";
                 os << "\n";
             }
         }
-        os << "}";
     }
-    os << ")";
 }
 
 ///@brief Escapes the given identifier to be safe for verilog
