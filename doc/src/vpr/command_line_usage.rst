@@ -1237,6 +1237,8 @@ Analysis Options
 
     **Default:** off
 
+.. _gen_post_synthesis_netlist:
+
 .. option:: --gen_post_synthesis_netlist { on | off }
 
     Generates the Verilog and SDF files for the post-synthesized circuit.
@@ -1251,6 +1253,16 @@ Analysis Options
 
     If one wants to generate the post-synthesized Verilog file of a circuit that contains a primitive other than those mentioned above, he/she should contact the VTR team to have the source code updated.
     Furthermore to perform simulation on that circuit the Verilog description of that new primitive must be appended to the primitives.v file as a separate module.
+
+    **Default:** ``off``
+
+.. option:: --gen_post_synthesis_merged_netlist { on | off }
+
+    This option is based on ``--gen_post_synthesis_netlist``. The difference is that ``--gen_post_synthesis_merged_netlist``
+    generates only verilog file with merged top module multi-bit ports for the post-synthesized circuit.
+    Name of the file is <basename>_merged_post_synthesis.v
+
+    .. seealso:: :ref:`gen_post_synthesis_netlist`
 
     **Default:** ``off``
 
